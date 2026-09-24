@@ -5,17 +5,6 @@ size: 16:9
 paginate: true
 html: true
 header: "Under the Hood of Compile-Time Instrumentation for Go · OTel Night Berlin"
-style: |
-  .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-  .columns3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
-  .small { font-size: 0.8em; }
-  .tiny { font-size: 0.6em; }
-  section.vcenter { display: flex; flex-direction: column; justify-content: center; }
-  section.punch { display: flex; flex-direction: column; justify-content: center; text-align: center; }
-  section.punch h1, section.punch h2 { font-size: 1.8em; }
-  section.dense pre { font-size: 0.42em; line-height: 1.25; }
-  section.wall pre { font-size: 0.24em; line-height: 1.15; }
-  img.onwhite { background: #ffffff; border-radius: 16px; padding: 12px; }
 ---
 
 <!-- _class: lead -->
