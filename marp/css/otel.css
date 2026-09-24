@@ -379,6 +379,69 @@ section::after {
     color: var(--muted);
 }
 
+/* ─── Layout: content slides ─── */
+
+/* Top-align content so the title sits at the same place on every slide. */
+section {
+    align-content: start;
+}
+/* Title band: slide title followed by a short orange rule. */
+section > h1:first-of-type,
+section > h2:first-of-type {
+    text-wrap: balance;
+}
+section > h2:first-of-type::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 4px;
+    margin-top: 16px;
+    border-radius: 2px;
+    background: var(--accent);
+}
+/* Lead-in sentence right under a title reads as a subtitle. */
+section > h2 + p {
+    color: var(--text-2);
+}
+
+/* Tables and images use the full content width. */
+table {
+    width: 100%;
+}
+p:has(> img:only-child) {
+    text-align: center;
+    margin-bottom: 0;
+}
+section img {
+    background-color: transparent;
+}
+
+/* Captions (a paragraph holding only .tiny) at the end of a slide are
+   pinned to the bottom-left corner, level with the page number. */
+section > p:last-child:has(> .tiny:only-child) {
+    position: absolute;
+    left: 80px;
+    right: 120px;
+    bottom: 22px;
+    margin: 0;
+    line-height: 1.2;
+}
+section > p:last-child > .tiny:only-child {
+    font-size: 16px;
+}
+
+/* Columns align to the top and breathe a little more. */
+.columns,
+.columns3 {
+    align-items: start;
+}
+.columns {
+    gap: 40px;
+}
+.columns > div > :last-child {
+    margin-bottom: 0;
+}
+
 /* ─── Utilities (moved from the deck front matter) ─── */
 
 .columns {
@@ -400,6 +463,7 @@ section::after {
 }
 .tiny code {
     color: var(--text-2);
+    font-size: 0.92em;
 }
 img.onwhite {
     background: #ffffff;
@@ -422,17 +486,61 @@ section.wall marp-pre {
     padding: 10px 12px;
 }
 
+section.dense {
+    padding-top: 64px;
+}
+section.dense h2 {
+    font-size: 1.3em;
+    margin-bottom: 0.45em;
+}
+section.dense h2::after {
+    margin-top: 10px;
+}
+
 /* ─── Punch slides: one statement, centred ─── */
 
 section.punch {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     text-align: center;
+    padding: 72px 120px;
+    background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(66, 92, 199, 0.22), transparent 70%),
+        var(--base);
 }
 section.punch h1,
 section.punch h2 {
-    font-size: 1.8em;
+    font-size: 2.1em;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0;
+    text-wrap: balance;
+}
+section.punch h1::after,
+section.punch h2::after {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 5px;
+    margin: 28px auto 0;
+    border-radius: 3px;
+    background: var(--accent);
+}
+section.punch p {
+    font-size: 1.1em;
+    color: var(--text-2);
+    margin-top: 1.1em;
+    margin-bottom: 0;
+    text-wrap: balance;
+}
+section.punch p + p {
+    margin-top: 0.4em;
+}
+section.punch strong {
+    color: var(--title);
 }
 
 /* ─── Lead slides: section dividers ─── */
@@ -440,26 +548,41 @@ section.punch h2 {
 section.lead {
     color: var(--text);
     background:
-        radial-gradient(circle at 88% 12%, rgba(245, 168, 0, 0.16), transparent 42%),
-        linear-gradient(135deg, #0d1526 0%, #1a2a66 55%, var(--otel-blue) 100%);
+        radial-gradient(ellipse 60% 70% at 100% 0%, rgba(154, 171, 245, 0.22), transparent 70%),
+        linear-gradient(135deg, #0d1526 0%, #16225a 50%, var(--otel-blue) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     text-align: center;
+    padding: 72px 120px;
 }
 section.lead h1 {
     color: #ffffff;
-    border-bottom: 4px solid var(--accent);
-    font-size: 2.1em;
-    display: inline-block;
-    margin: 0 auto 0.5em;
-    padding-bottom: 0.2em;
+    font-size: 2.3em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.45em;
+    text-wrap: balance;
+}
+section.lead h1::after {
+    content: "";
+    display: block;
+    width: 96px;
+    height: 6px;
+    margin: 28px auto 0;
+    border-radius: 3px;
+    background: var(--accent);
 }
 section.lead h2 {
-    color: rgba(255, 255, 255, 0.86);
+    color: rgba(255, 255, 255, 0.88);
     font-weight: 500;
     font-size: 1.05em;
     letter-spacing: -0.01em;
+    margin-bottom: 0.4em;
+}
+section.lead h2::after {
+    display: none;
 }
 section.lead p {
     color: rgba(255, 255, 255, 0.78);
@@ -467,6 +590,11 @@ section.lead p {
 }
 section.lead a {
     color: var(--accent);
+}
+section.lead code {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 section.lead::after {
     color: rgba(255, 255, 255, 0.4);
