@@ -600,6 +600,106 @@ section.lead::after {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* ─── Per-slide layouts ─── */
+
+/* Title slide: greedy wrapping keeps "Compile-Time" together. */
+section.title h1 {
+    font-size: 2.1em;
+    text-wrap: wrap;
+}
+
+/* Vertically centred content slide (no title band). */
+section.center,
+section.quote,
+section.closing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+section.center ul {
+    font-size: 1.4em;
+    align-self: center;
+}
+
+/* Quote slide: large quote, attribution underneath. */
+section.quote {
+    padding: 72px 140px;
+}
+section.quote blockquote {
+    background: none;
+    border-left-width: 8px;
+    padding: 8px 0 8px 40px;
+}
+section.quote blockquote p {
+    font-size: 1.55em;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+}
+section.quote blockquote + p {
+    padding-left: 48px;
+    color: var(--accent);
+    font-weight: 600;
+}
+section.quote blockquote + p::before {
+    content: "— ";
+}
+
+/* Show-of-hands: small label, big question. */
+section.poll h2 {
+    font-size: 0.95em;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+section.poll h2::after {
+    display: none;
+}
+section.poll p {
+    font-size: 1.7em;
+    color: var(--text);
+    margin-top: 0.4em;
+}
+section.poll p strong {
+    color: var(--text);
+    font-weight: 700;
+}
+section.poll p:has(> em:only-child) {
+    font-size: 1em;
+    color: var(--text-2);
+}
+
+/* Long single lines wrap instead of shrinking the whole block. */
+section.wrapcode pre code {
+    display: block;
+    width: 1066px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Stacked blocks (instead of .columns) when lines are too long for halves. */
+.rows {
+    display: grid;
+    gap: 14px;
+}
+.rows > div > :last-child {
+    margin-bottom: 0;
+}
+
+/* Closing slide. */
+section.closing h1 {
+    font-size: 1.8em;
+}
+section.closing ul {
+    font-size: 1.05em;
+}
+section.closing img {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px;
+}
+
 /* ─── Invert (light) variant: kept for completeness, not used in the deck ─── */
 
 section.invert {
