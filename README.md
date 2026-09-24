@@ -90,4 +90,4 @@ Inherited teaching panels explain partial code and are not all standalone progra
 
 ## License
 
-Original material is available under [Apache-2.0](LICENSE). OpenTelemetry excerpts retain their upstream attribution. Logos and the Daniel Martí video screenshot belong to their respective owners and are included as references; this license does not grant rights to those marks or images.
+Original material is available under [Apache-2.0](LICENSE). OpenTelemetry excerpts retain their upstream attribution. Logos and the Daniel Martí video screenshot belong to their respective owners and are included as references; this license does not grant rights to those marks or images. The Inter and JetBrains Mono fonts in `assets/fonts` are under the SIL Open Font License 1.1; their license files sit beside them.

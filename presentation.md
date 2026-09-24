@@ -5,20 +5,9 @@ size: 16:9
 paginate: true
 html: true
 header: "Under the Hood of Compile-Time Instrumentation for Go · OTel Night Berlin"
-style: |
-  .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-  .columns3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
-  .small { font-size: 0.8em; }
-  .tiny { font-size: 0.6em; }
-  section.vcenter { display: flex; flex-direction: column; justify-content: center; }
-  section.punch { display: flex; flex-direction: column; justify-content: center; text-align: center; }
-  section.punch h1, section.punch h2 { font-size: 1.8em; }
-  section.dense pre { font-size: 0.42em; line-height: 1.25; }
-  section.wall pre { font-size: 0.24em; line-height: 1.15; }
-  img.onwhite { background: #ffffff; border-radius: 16px; padding: 12px; }
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead title -->
 <!-- _paginate: false -->
 <!-- _header: "" -->
 
@@ -86,6 +75,8 @@ Simplicity
 
 ---
 
+<!-- _class: quote -->
+
 > Programs must be written for people to read, and only incidentally for machines to execute.
 
 Hal Abelson
@@ -96,6 +87,8 @@ Why is it so important that Go is easy to read? It's because when we write code,
 -->
 
 ---
+
+<!-- _class: center -->
 
 - Simple to understand.
 - Simple to troubleshoot.
@@ -422,6 +415,8 @@ Then, for every single function you want to trace, you need to add these two lin
 
 ---
 
+<!-- _class: dense -->
+
 ## Manual: Python 🐍
 
 ```python
@@ -609,6 +604,8 @@ Fully automatic: Python 🐍
 
 ---
 
+<!-- _class: wrapcode -->
+
 ## Fully automatic: Java ☕
 
 ```bash
@@ -744,7 +741,7 @@ Go Puts its Magic in Tools, not the Language
 
 ---
 
-<!-- _class: punch -->
+<!-- _class: punch poll -->
 
 ## Show of Hands 🙋
 
@@ -953,6 +950,8 @@ Now we're getting to the interesting part. The compiler arguments contain the pa
 -->
 
 ---
+
+<!-- _class: punch poll -->
 
 ## Show of Hands 🙋
 
@@ -1308,7 +1307,7 @@ S057
 
 ---
 
-<!-- _class: punch -->
+<!-- _class: punch poll -->
 
 ## Show of Hands 🙋
 
@@ -1667,9 +1666,11 @@ The HTTP client and server hooks make spans. init_sdk initializes the SDK; log a
 
 ---
 
+<!-- _class: dense -->
+
 ## The setup code you didn't write
 
-<div class="columns">
+<div class="rows">
 
 <div>
 
@@ -1966,7 +1967,7 @@ Hooks are only one kind of rewrite. The same rule system can add fields and file
 ## Supported libraries (v1.1.0)
 
 <style scoped>
-table { font-size: 0.56em; }
+table { font-size: 0.62em; }
 th, td { padding: 5px 8px; }
 </style>
 
@@ -2331,6 +2332,8 @@ otelc is the OpenTelemetry implementation: vendor-neutral and built by the SIG.
 -->
 
 ---
+
+<!-- _class: closing -->
 
 # Thank you · Questions?
 

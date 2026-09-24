@@ -1,316 +1,720 @@
 /* @theme otel */
 /*
-  OpenTelemetry brand theme for Marp
-  Dark theme with proper syntax highlighting for code-heavy presentations.
-  Inspired by the OTel brand palette and the Datadog Marp theme structure.
+  OpenTelemetry theme for Marp: dark navy base, OpenTelemetry blue and
+  orange as brand colours, Go cyan for code. Built for code-heavy talks
+  shown on a projector at 1280x720.
+
+  Fonts are bundled under assets/fonts (SIL OFL 1.1). URLs resolve relative
+  to the built HTML, which lives next to assets/.
 */
 
 @import "default";
 
-:root {
-    --base: #0f1729;
-    --surface: #1a2332;
-    --overlay: #243044;
-    --muted: #6b7b8d;
-    --subtle: #94a3b8;
-    --text: #e8edf3;
-    --love: #f472b6;
-    --gold: #f5a623;
-    --rose: #818cf8;
-    --pine: #34d399;
-    --foam: #67e8f9;
-    --iris: #4f62ad;
-    --highlight-low: #1e293b;
-    --highlight-muted: #334155;
-    --highlight-high: #475569;
-
-    font-family: 'Inter', 'Helvetica Neue', ui-sans-serif, system-ui,
-        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial,
-        sans-serif;
-    font-weight: initial;
-
-    background-color: var(--base);
+@font-face {
+    font-family: "Inter";
+    src: url("assets/fonts/InterVariable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("assets/fonts/InterVariable-Italic.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: block;
+}
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("assets/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("assets/fonts/JetBrainsMono-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: block;
+}
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("assets/fonts/JetBrainsMono-Italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: block;
 }
 
-/* Common style */
+/* ─── Design tokens ─── */
+
+:root {
+    /* Brand */
+    --otel-blue: #425cc7;
+    --otel-orange: #f5a800;
+    --go-cyan: #00add8;
+
+    /* Surfaces */
+    --base: #0d1526;
+    --surface: #131d33;
+    --overlay: #182441;
+    --code-bg: #111a2f;
+    --line: #25324f;
+    --line-strong: #34446a;
+
+    /* Text (contrast on --base: text 15.5, text-2 11.4, muted 5.8) */
+    --text: #e9edf5;
+    --text-2: #c5cddc;
+    --muted: #8591ab;
+
+    /* Accents (all >= 7:1 on --base) */
+    --title: #9aabf5;
+    --accent: var(--otel-orange);
+    --link: #4fd1ee;
+
+    /* Syntax */
+    --syn-keyword: #8ea2ff;
+    --syn-string: #f7cb62;
+    --syn-number: #ff9e7d;
+    --syn-type: #4fd1ee;
+    --syn-func: #7ee0b5;
+    --syn-tag: #f38bc2;
+    --syn-comment: #7f8ba5;
+    --syn-punct: #aeb8cc;
+
+    /* Legacy aliases kept for scoped styles and diagrams */
+    --subtle: var(--text-2);
+    --rose: var(--title);
+    --gold: var(--otel-orange);
+    --foam: var(--link);
+    --iris: var(--otel-blue);
+    --highlight-low: var(--surface);
+    --highlight-muted: var(--line);
+    --highlight-high: var(--line-strong);
+
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji";
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* ─── Slide ─── */
+
+section {
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    font-feature-settings: "cv11", "ss01";
+    font-optical-sizing: auto;
+    color: var(--text);
+    background-color: var(--base);
+    padding: 72px 80px 64px;
+}
+
+/* ─── Headings ─── */
+
+h1,
+h2 {
+    color: var(--title);
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.15;
+}
 h1 {
-    color: var(--rose);
-    font-size: 1.3em;
-    padding-bottom: 1mm;
-    margin-bottom: 6mm;
+    font-size: 1.6em;
+    margin-bottom: 0.55em;
 }
 h2 {
-    color: var(--rose);
+    font-size: 1.45em;
+    margin-bottom: 0.6em;
 }
 h3 {
-    color: var(--foam);
+    color: var(--link);
+    font-size: 0.95em;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4em;
 }
 h4 {
-    color: var(--rose);
+    color: var(--title);
 }
-a {
-    color: var(--foam);
+h1 code,
+h2 code,
+h3 code {
+    color: inherit;
+    font-size: 0.9em;
+    background-color: rgba(154, 171, 245, 0.12);
+    border-color: rgba(154, 171, 245, 0.22);
 }
+
+/* ─── Body text ─── */
+
 p {
-    font-size: 20pt;
-    font-weight: 500;
     color: var(--text);
+    margin-bottom: 0.6em;
 }
-code {
-    color: var(--text);
-    background-color: var(--highlight-muted);
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', monospace;
-}
-text {
-    color: var(--text);
-}
-ul {
-    color: var(--subtle);
+ul,
+ol {
+    color: var(--text-2);
+    padding-left: 1.2em;
 }
 li {
-    color: var(--subtle);
+    color: var(--text-2);
+}
+li + li {
+    margin-top: 0.35em;
+}
+li::marker {
+    color: var(--accent);
 }
 strong {
     color: var(--text);
-    font-weight: 800;
+    font-weight: 650;
 }
+em {
+    color: var(--text);
+}
+del {
+    color: var(--muted);
+}
+a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: rgba(79, 209, 238, 0.35);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+
+/* Inline code */
+code {
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+    color: #cfeefa;
+    background-color: rgba(79, 209, 238, 0.1);
+    border: 1px solid rgba(79, 209, 238, 0.18);
+    border-radius: 6px;
+    padding: 0.06em 0.32em;
+}
+
+/* ─── Quotes ─── */
+
 blockquote {
-    border-left: 4px solid var(--gold);
-    background: rgba(245, 166, 35, 0.08);
-    padding: 12px 20px;
-    margin: 12px 0;
-    border-radius: 0 6px 6px 0;
+    color: var(--text);
+    border-left: 6px solid var(--accent);
+    background: var(--surface);
+    padding: 20px 28px;
+    margin: 0 0 0.7em;
+    border-radius: 0 12px 12px 0;
 }
 blockquote p {
     color: var(--text);
-    font-size: 18pt;
+    font-size: 1.05em;
+    font-weight: 450;
+    line-height: 1.4;
 }
 
-/* Tables */
+/* ─── Tables ─── */
+
 table {
-    font-size: 0.7em;
+    display: table;
+    font-size: 0.8em;
+    line-height: 1.35;
     color: var(--text);
-    background-color: transparent;
     border-collapse: collapse;
+    background-color: transparent;
+    font-variant-numeric: tabular-nums;
 }
-td {
-    vertical-align: middle;
-    color: var(--subtle);
-    background-color: var(--surface);
-    border-bottom: 1px solid var(--highlight-muted);
+table tr,
+table tr:nth-child(2n) {
+    background-color: transparent;
+    border-top: 0;
 }
-tr:nth-child(even) td {
-    background-color: var(--highlight-low);
+table th,
+table td {
+    border: 0;
+    padding: 10px 18px;
+    text-align: left;
 }
 thead th {
-    background-color: var(--overlay);
     color: var(--text);
-    border-bottom: 2px solid var(--highlight-high);
-}
-
-/* Code block container */
-marp-pre {
+    font-weight: 650;
     background-color: var(--overlay);
-    border: 1px solid var(--highlight-high);
-    border-radius: 8px;
+    border-bottom: 2px solid var(--accent);
+}
+td {
+    color: var(--text-2);
+    vertical-align: middle;
+    background-color: transparent;
+    border-bottom: 1px solid var(--line);
+}
+tbody tr:nth-child(even) td {
+    background-color: rgba(19, 29, 51, 0.6);
+}
+td code {
+    font-size: 0.86em;
 }
 
-section pre {
-    font-size: 0.62em;
+/* ─── Code blocks ─── */
+
+marp-pre,
+pre {
+    font-family: var(--font-mono);
+    color: var(--text);
+    background-color: var(--code-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 26px;
+    font-size: 0.7em;
     line-height: 1.5;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
-
 section pre code {
-    font-family: 'Menlo', 'Monaco', 'Consolas', 'DejaVu Sans Mono', monospace;
+    font-family: var(--font-mono);
     color: var(--text);
     background: transparent;
-    -webkit-font-feature-settings: normal;
-    font-feature-settings: normal;
+    border: 0;
+    padding: 0;
+    font-size: 100%;
     font-variant-ligatures: none;
+    font-feature-settings: "calt" 0;
 }
 
-/* ─── Syntax highlighting (highlight.js classes) ─── */
-
-.hljs-comment {
-    color: var(--muted);
+.hljs-comment,
+.hljs-quote {
+    color: var(--syn-comment);
     font-style: italic;
 }
-.hljs-attr {
-    color: var(--foam);
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag {
+    color: var(--syn-keyword);
 }
-.hljs-punctuation {
-    color: var(--subtle);
+.hljs-string,
+.hljs-regexp,
+.hljs-meta .hljs-string {
+    color: var(--syn-string);
 }
-.hljs-string {
-    color: var(--gold);
+.hljs-number,
+.hljs-literal {
+    color: var(--syn-number);
 }
-.hljs-title {
-    color: var(--foam);
+.hljs-type,
+.hljs-built_in,
+.hljs-symbol,
+.hljs-title.class_ {
+    color: var(--syn-type);
 }
-.hljs-keyword {
-    color: var(--pine);
+.hljs-title,
+.hljs-title.function_,
+.hljs-function {
+    color: var(--syn-func);
 }
-.hljs-variable {
+.hljs-attr,
+.hljs-attribute,
+.hljs-selector-id,
+.hljs-selector-class {
+    color: var(--syn-keyword);
+}
+.hljs-variable,
+.hljs-params,
+.hljs-subst,
+.hljs-operator {
     color: var(--text);
 }
-.hljs-literal {
-    color: var(--rose);
+.hljs-punctuation {
+    color: var(--syn-punct);
 }
-.hljs-type {
-    color: var(--love);
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+    color: var(--syn-punct);
 }
-.hljs-number {
-    color: var(--gold);
-}
-.hljs-built_in {
-    color: var(--love);
-}
-.hljs-params {
-    color: var(--iris);
-}
-.hljs-symbol {
-    color: var(--foam);
-}
-.hljs-meta {
-    color: var(--subtle);
-}
-.hljs-function {
-    color: var(--foam);
-}
-.hljs-selector-class {
-    color: var(--pine);
-}
-.hljs-selector-id {
-    color: var(--foam);
-}
-.hljs-tag {
-    color: var(--love);
-}
-.hljs-name {
-    color: var(--love);
-}
+.hljs-tag,
+.hljs-name,
 .hljs-section {
-    color: var(--rose);
+    color: var(--syn-tag);
 }
 .hljs-bullet {
-    color: var(--gold);
+    color: var(--accent);
+}
+.hljs-emphasis {
+    font-style: italic;
+}
+.hljs-strong {
+    font-weight: 700;
 }
 
-/* Header - small, top-left */
+/* ─── Header and page number ─── */
+
 header {
-    font-size: 0.4em;
+    top: 26px;
+    left: 80px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     color: var(--muted);
-    text-align: left;
-    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-
-/* Hide footer by default */
+header::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--accent);
+}
+header:empty {
+    display: none;
+}
 footer {
     display: none;
 }
-
-/* Page number */
 section::after {
-    font-size: 0.45em;
+    right: 40px;
+    bottom: 24px;
+    font-size: 15px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
     color: var(--muted);
 }
 
-/* ─── Lead class (section dividers) ─── */
+/* ─── Layout: content slides ─── */
 
-section.lead {
-    background: linear-gradient(135deg, #162B4D 0%, var(--iris) 100%);
-    color: var(--text);
+/* Top-align content so the title sits at the same place on every slide. */
+section {
+    align-content: start;
+}
+/* Title band: slide title followed by a short orange rule. */
+section > h1:first-of-type,
+section > h2:first-of-type {
+    text-wrap: balance;
+}
+section > h2:first-of-type::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 4px;
+    margin-top: 16px;
+    border-radius: 2px;
+    background: var(--accent);
+}
+/* Lead-in sentence right under a title reads as a subtitle. */
+section > h2 + p {
+    color: var(--text-2);
+}
+
+/* Tables and images use the full content width. */
+table {
+    width: 100%;
+}
+p:has(> img:only-child) {
+    text-align: center;
+    margin-bottom: 0;
+}
+section img {
+    background-color: transparent;
+}
+
+/* Captions (a paragraph holding only .tiny) at the end of a slide are
+   pinned to the bottom-left corner, level with the page number. */
+section > p:last-child:has(> .tiny:only-child) {
+    position: absolute;
+    left: 80px;
+    right: 120px;
+    bottom: 22px;
+    margin: 0;
+    line-height: 1.2;
+}
+section > p:last-child > .tiny:only-child {
+    font-size: 16px;
+}
+
+/* Columns align to the top and breathe a little more. */
+.columns,
+.columns3 {
+    align-items: start;
+}
+.columns {
+    gap: 40px;
+}
+.columns > div > :last-child {
+    margin-bottom: 0;
+}
+
+/* ─── Utilities (moved from the deck front matter) ─── */
+
+.columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+.columns3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+.small {
+    font-size: 0.8em;
+}
+.tiny {
+    font-size: 0.6em;
+    color: var(--muted);
+}
+.tiny code {
+    color: var(--text-2);
+    font-size: 0.92em;
+}
+img.onwhite {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 12px;
+}
+
+/* Denser code: long listings that must fit on one slide */
+section.dense pre,
+section.dense marp-pre {
+    font-size: 0.54em;
+    line-height: 1.34;
+    padding: 16px 22px;
+}
+/* Deliberately unreadable wall of code */
+section.wall pre,
+section.wall marp-pre {
+    font-size: 0.24em;
+    line-height: 1.15;
+    padding: 10px 12px;
+}
+
+section.dense {
+    padding-top: 64px;
+}
+section.dense h2 {
+    font-size: 1.3em;
+    margin-bottom: 0.45em;
+}
+section.dense h2::after {
+    margin-top: 10px;
+}
+
+/* ─── Punch slides: one statement, centred ─── */
+
+section.punch {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     text-align: center;
+    padding: 72px 120px;
+    background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(66, 92, 199, 0.22), transparent 70%),
+        var(--base);
+}
+section.punch h1,
+section.punch h2 {
+    font-size: 2.1em;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0;
+    text-wrap: balance;
+}
+section.punch h1::after,
+section.punch h2::after {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 5px;
+    margin: 28px auto 0;
+    border-radius: 3px;
+    background: var(--accent);
+}
+section.punch p {
+    font-size: 1.1em;
+    color: var(--text-2);
+    margin-top: 1.1em;
+    margin-bottom: 0;
+    text-wrap: balance;
+}
+section.punch p + p {
+    margin-top: 0.4em;
+}
+section.punch strong {
+    color: var(--title);
 }
 
+/* ─── Lead slides: section dividers ─── */
+
+section.lead {
+    color: var(--text);
+    background:
+        radial-gradient(ellipse 60% 70% at 100% 0%, rgba(154, 171, 245, 0.22), transparent 70%),
+        linear-gradient(135deg, #0d1526 0%, #16225a 50%, var(--otel-blue) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 72px 120px;
+}
 section.lead h1 {
     color: #ffffff;
-    border-bottom: 3px solid var(--gold);
-    font-size: 2.2em;
-    display: inline-block;
-    margin: 0 auto 0.5em;
-    padding-bottom: 0.2em;
+    font-size: 2.3em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.45em;
+    text-wrap: balance;
 }
-
+section.lead h1::after {
+    content: "";
+    display: block;
+    width: 96px;
+    height: 6px;
+    margin: 28px auto 0;
+    border-radius: 3px;
+    background: var(--accent);
+}
 section.lead h2 {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 400;
-    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 500;
+    font-size: 1.05em;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4em;
 }
-
+section.lead h2::after {
+    display: none;
+}
 section.lead p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.85em;
 }
-
 section.lead a {
-    color: var(--gold);
+    color: var(--accent);
 }
-
-section.lead footer {
-    color: rgba(255, 255, 255, 0.3);
+section.lead code {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
 }
-
 section.lead::after {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.4);
 }
 
-/* ─── Invert class (light slides for contrast) ─── */
+/* ─── Per-slide layouts ─── */
+
+/* Title slide: greedy wrapping keeps "Compile-Time" together. */
+section.title h1 {
+    font-size: 2.1em;
+    text-wrap: wrap;
+}
+
+/* Vertically centred content slide (no title band). */
+section.center,
+section.quote,
+section.closing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+section.center ul {
+    font-size: 1.4em;
+    align-self: center;
+}
+
+/* Quote slide: large quote, attribution underneath. */
+section.quote {
+    padding: 72px 140px;
+}
+section.quote blockquote {
+    background: none;
+    border-left-width: 8px;
+    padding: 8px 0 8px 40px;
+}
+section.quote blockquote p {
+    font-size: 1.55em;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+}
+section.quote blockquote + p {
+    padding-left: 48px;
+    color: var(--accent);
+    font-weight: 600;
+}
+section.quote blockquote + p::before {
+    content: "— ";
+}
+
+/* Show-of-hands: small label, big question. */
+section.poll h2 {
+    font-size: 0.95em;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+section.poll h2::after {
+    display: none;
+}
+section.poll p {
+    font-size: 1.7em;
+    color: var(--text);
+    margin-top: 0.4em;
+}
+section.poll p strong {
+    color: var(--text);
+    font-weight: 700;
+}
+section.poll p:has(> em:only-child) {
+    font-size: 1em;
+    color: var(--text-2);
+}
+
+/* Long single lines wrap instead of shrinking the whole block. */
+section.wrapcode pre code {
+    display: block;
+    width: 1066px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Stacked blocks (instead of .columns) when lines are too long for halves. */
+.rows {
+    display: grid;
+    gap: 14px;
+}
+.rows > div > :last-child {
+    margin-bottom: 0;
+}
+
+/* Closing slide. */
+section.closing h1 {
+    font-size: 1.8em;
+}
+section.closing ul {
+    font-size: 1.05em;
+}
+section.closing img {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* ─── Invert (light) variant: kept for completeness, not used in the deck ─── */
 
 section.invert {
     --base: #f8fafc;
     --surface: #ffffff;
-    --overlay: #f1f5f9;
-    --muted: #94a3b8;
-    --subtle: #475569;
-    --text: #1e293b;
-    --love: #be185d;
-    --gold: #b45309;
-    --rose: #4338ca;
-    --pine: #047857;
-    --foam: #0e7490;
-    --iris: #4f62ad;
-    --highlight-low: #f1f5f9;
-    --highlight-muted: #e2e8f0;
-    --highlight-high: #cbd5e1;
-
+    --overlay: #eef2f8;
+    --line: #dbe2ee;
+    --line-strong: #c3cddf;
+    --text: #1b2437;
+    --text-2: #3d4a63;
+    --muted: #6b7890;
+    --title: #2f47b0;
+    --link: #0a7ea4;
     background-color: var(--base);
 }
-
-section.invert marp-pre {
-    background-color: #1e293b;
-    border-color: #334155;
-}
-
-section.invert pre code {
-    color: #e2e8f0;
-}
-
-/* Re-apply dark syntax highlighting inside invert code blocks */
-section.invert .hljs-comment { color: #6b7b8d; }
-section.invert .hljs-attr { color: #67e8f9; }
-section.invert .hljs-string { color: #f5a623; }
-section.invert .hljs-title { color: #67e8f9; }
-section.invert .hljs-keyword { color: #34d399; }
-section.invert .hljs-type { color: #f472b6; }
-section.invert .hljs-number { color: #f5a623; }
-section.invert .hljs-built_in { color: #f472b6; }
-section.invert .hljs-literal { color: #818cf8; }
-section.invert .hljs-variable { color: #e2e8f0; }
-section.invert .hljs-punctuation { color: #94a3b8; }
-
 section.invert code {
-    background-color: var(--highlight-muted);
-    color: var(--text);
-}
-
-section.invert footer {
-    color: var(--muted);
-}
-
-section.invert::after {
-    color: var(--muted);
+    color: #0b4f66;
 }
