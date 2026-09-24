@@ -1,0 +1,10 @@
+Hello OTel Night Berlin
+2026/09/24 15:07:55 INFO function entry func=calculateSum
+2026/09/24 15:07:55 INFO function exit func=calculateSum duration=52.205208ms
+Sum: 30
+2026/09/24 15:07:55 INFO function entry func=processData
+Processed 3 items for demo
+2026/09/24 15:07:55 INFO function exit func=processData duration=102.075333ms
+2026/09/24 15:07:55 INFO function entry func=simpleOperation
+Simple operation completed
+2026/09/24 15:07:55 INFO function exit func=simpleOperation duration=25.08625ms

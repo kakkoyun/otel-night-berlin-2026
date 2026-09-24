@@ -1,0 +1,3 @@
+// gopark should be an internal detail,
+// but widely used packages access it using linkname.
+// Notable members of the hall of shame include:

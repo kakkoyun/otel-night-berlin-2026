@@ -1,0 +1,1 @@
+Generated main.go.generated with logging injected

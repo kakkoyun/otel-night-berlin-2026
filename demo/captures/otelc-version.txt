@@ -1,0 +1,2 @@
+otelc version v1.1.0
+go1.27.1
