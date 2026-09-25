@@ -29,7 +29,7 @@ S001
 - Software engineer at Datadog (APM, Go)
 - Maintainer, OpenTelemetry Go Compile-Time Instrumentation
 - Prometheus Steering Committee · `client_golang` maintainer
-- Emeritus: Thanos, Parca
+- Emeritus: Thanos, Parca, Prometheus Operator
 - @kakkoyun · kakkoyun.me
 
 <!--
